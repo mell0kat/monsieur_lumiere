@@ -358,3 +358,7 @@ multiple teams.
 
 We hope this has served as a welcoming introduction to your
 Slack App project scaffold on [StdLib](https://stdlib.com) --- happy building!
+=======
+# monsieur_lumiere
+Slack app for light control
+
