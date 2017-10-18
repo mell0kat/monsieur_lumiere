@@ -1,4 +1,5 @@
 const lib = require('lib')({token: process.env.STDLIB_TOKEN});
+const request = require('request')
 
 /**
 * message event
@@ -18,12 +19,88 @@ const lib = require('lib')({token: process.env.STDLIB_TOKEN});
 module.exports = (user, channel, text = '', event = {}, botToken = null, callback) => {
 
   // Only send a response to certain messages
-  if (text.match(/hey|hello|hi|sup/i)) {
+  if (text.match(/banana/i)) {
+
+      request.get({
+		    uri: 'http://10.200.173.4:5000/setrgb/255,255,0,3'
+		  }, (err, result) => {
+
+		    if (err) {
+		      return callback(err);
+		    }
+
+		    let body;
+		    try {
+		      body = JSON.parse(result.body);
+		    } catch (e) {
+		      body = {}
+		    }
+
+		    if (!body.ok) {
+		      return callback(new Error(body.error ? `Light Control Error: ${body.error}` : 'Invalid Request to Light Server'));
+		    }
+
+		    callback(null, data);
+
+		  });
+
     callback(null, {
-      text: `Hey there! <@${user}> said ${text}`
+      text: `Hey <@${user}>! Did you say something about a banana?  Let's set the light to yellow because a banana is yellow`
     });
-  } else {
+
+
+
+  } else if(text.match(/apple/i)){
+  	 callback(null, {
+      text: `Hey there! <@${user}> said apple`
+    });
+
+  } else if(text.match(/tomato/i)){
+  	 callback(null, {
+      text: `Hey <@${user}>!  Did you say something about tomato?`
+    });
+
+  } else if(text.match(/green|envy|jealous/i)){
+  	   request.get({
+		    uri: 'http://10.200.173.4:5000/setrgb/0,255,0,3'
+		  }, (err, result) => {
+
+		    if (err) {
+		      return callback(err);
+		    }
+
+		    let body;
+		    try {
+		      body = JSON.parse(result.body);
+		    } catch (e) {
+		      body = {}
+		    }
+
+		    if (!body.ok) {
+		      return callback(new Error(body.error ? `Light Control Error: ${body.error}` : 'Invalid Request to Light Server'));
+		    }
+
+		    callback(null, data);
+
+		  });
+
+  	 callback(null, {
+      text: `Hey <@${user}>!  Did you say you were feeling green?`
+    });
+
+  } else if(text.match(/blueberry/i)){
+  	 callback(null, {
+      text: `Hey there! <@${user}> said blueberry`
+    });
+
+  } else if(text.match(/raisin/i)){
+  	 callback(null, {
+      text: `Hey there! <@${user}> said raisin`
+    });
+
+  }else {
     callback(null, {});
   }
 
 };
+
