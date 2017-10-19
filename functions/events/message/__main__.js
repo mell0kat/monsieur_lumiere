@@ -1,5 +1,5 @@
 const lib = require('lib')({token: process.env.STDLIB_TOKEN});
-
+const request = require('request')
 /**
 * message event
 *
@@ -18,9 +18,11 @@ const lib = require('lib')({token: process.env.STDLIB_TOKEN});
 module.exports = (user, channel, text = '', event = {}, botToken = null, callback) => {
 
   // Only send a response to certain messages
-  if (text.match(/hey|hello|hi|sup/i)) {
+  if (text.match(/banana/i)) {
+  	request.get({url:'http://10.200.173.4:5000/setrgb/255,255,0,3' })
     callback(null, {
-      text: `Hey there! <@${user}> said ${text}`
+      text: `Hey there, <@${user}>!  Did you say something about banana? Bananas are yellow!  
+      Let me set the light accordingly`
     });
   } else {
     callback(null, {});
